@@ -1,18 +1,20 @@
-import * as api from "../api"
-export const fetchallusers=()=> async(dispatch)=>{
-    try {
-        const {data}=await api.getallusers();
-        dispatch({type:"FETCH_USERS",payload:data});
-    } catch (error) {
-        console.log(error)
-    }
-}
+import * as api from "../api";
+import { FETCH_USERS, UPDATE_CURRENT_USER } from '../reducers/users';
 
-export const updateprofile=(id,updatedata)=>async(dispatch)=>{
+export const fetchallusers = () => async (dispatch) => {
     try {
-        const {data}=await api.updateprofile(id,updatedata);
-        dispatch({type:"UPDATE_CURRENT_USER",payload:data});
+        const { data } = await api.getallusers();
+        dispatch(FETCH_USERS(data));
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
+
+export const updateprofile = (id, updatedata) => async (dispatch) => {
+    try {
+        const { data } = await api.updateprofile(id, updatedata);
+        dispatch(UPDATE_CURRENT_USER(data));
+    } catch (error) {
+        console.log(error);
+    }
+};

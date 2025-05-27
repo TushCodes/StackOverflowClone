@@ -1,61 +1,61 @@
-import * as api from "../api"
+import * as api from "../api";
+import { POST_QUESTION, FETCH_ALL_QUESTIONS, POST_ANSWER } from '../reducers/question';
 
 export const askquestion = (questiondata, navigate) => async (dispatch) => {
     try {
         const { data } = await api.postquestion(questiondata);
-        dispatch({ type: "POST_QUESTION", payload: data });
-        dispatch(fetchallquestion())
-        navigate("/")
+        dispatch(POST_QUESTION(data));
+        dispatch(fetchallquestion());
+        navigate("/");
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };
 
 export const fetchallquestion = () => async (dispatch) => {
     try {
         const { data } = await api.getallquestions();
-        dispatch({ type: "FETCH_ALL_QUESTIONS", payload: data })
+        dispatch(FETCH_ALL_QUESTIONS(data));
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
 export const deletequestion = (id, navigate) => async (dispatch) => {
     try {
         await api.deletequestion(id);
         dispatch(fetchallquestion());
-        navigate("/")
+        navigate("/");
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
 export const votequestion = (id, value) => async (dispatch) => {
     try {
         await api.votequestion(id, value);
-        dispatch(fetchallquestion())
+        dispatch(fetchallquestion());
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
-
-export const postanswer=(answerdata)=>async(dispatch)=>{
+export const postanswer = (answerdata) => async (dispatch) => {
     try {
-        const{id,noofanswers,answerbody,useranswered,userid}=answerdata;
-        const {data}=await api.postanswer(id,noofanswers,answerbody,useranswered,userid);
-        dispatch({type:"POST_ANSWER",payload:data});
-        dispatch(fetchallquestion())
+        const { id, noofanswers, answerbody, useranswered, userid } = answerdata;
+        const { data } = await api.postanswer(id, noofanswers, answerbody, useranswered, userid);
+        dispatch(POST_ANSWER(data));
+        dispatch(fetchallquestion());
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
-export const deleteanswer=(id,answerid,noofanswers)=>async(dispatch)=>{
+export const deleteanswer = (id, answerid, noofanswers) => async (dispatch) => {
     try {
-        await api.deleteanswer(id,answerid,noofanswers);
-        dispatch(fetchallquestion())
+        await api.deleteanswer(id, answerid, noofanswers);
+        dispatch(fetchallquestion());
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };

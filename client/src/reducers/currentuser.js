@@ -1,10 +1,12 @@
-const currentuserreducer = (state = null, action) => {
-    switch (action.type) {
-        case "FETCH_CURRENT_USER":
-            return action.payload;
-        default:
-            return state;
-    }
-};
+import { createSlice } from '@reduxjs/toolkit';
 
-export default currentuserreducer;
+const currentuserSlice = createSlice({
+  name: 'currentuser',
+  initialState: null,
+  reducers: {
+    FETCH_CURRENT_USER: (state, action) => action.payload,
+  },
+});
+
+export const { FETCH_CURRENT_USER } = currentuserSlice.actions;
+export default currentuserSlice.reducer;
